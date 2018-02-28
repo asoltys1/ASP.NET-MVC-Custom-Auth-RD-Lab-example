@@ -1,1 +1,0 @@
-# ASP.NET-MVC-Custom-Auth-RD-Lab-example
