@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace CustomAuth.Models
 {
@@ -13,5 +9,8 @@ namespace CustomAuth.Models
 
         [Required]
         public string Password { get; set; }
+
+        [Display(Name = "Remember me")]
+        public bool RememberMe { get; set; }
     }
 }

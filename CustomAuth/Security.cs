@@ -16,9 +16,14 @@ namespace CustomAuth
             }
 
             string role = login.Username.ToUpper();
-            var ticket = new FormsAuthenticationTicket(1, login.Username, DateTime.Now, DateTime.Now.AddHours(24), true, role);
+            var expires = DateTime.Now.AddMonths(1);
+            var ticket = new FormsAuthenticationTicket(1, login.Username, DateTime.Now, expires, true, role);
             string encryptedTicket = FormsAuthentication.Encrypt(ticket);
             var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
+            if (login.RememberMe)
+            {
+                cookie.Expires = expires;
+            }
             HttpContext.Current.Response.Cookies.Add(cookie);
 
             return true;
@@ -26,7 +31,7 @@ namespace CustomAuth
 
         public static void Logout()
         {
-            var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, string.Empty){ Expires = new DateTime(1999, 10, 12) };
+            var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, string.Empty){ Expires = DateTime.Now.AddYears(-10) };
             HttpContext.Current.Response.Cookies.Add(cookie);
         }
     }
